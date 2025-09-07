@@ -2,9 +2,13 @@ import { type RouteConfig, index, layout, route } from "@react-router/dev/routes
 
 export default [
     index("routes/home.tsx"),
+    route("events", "routes/events.tsx"), 
+    route("music", "routes/music.tsx"),
     route("about", "routes/about.tsx"),
     route("contact", "routes/contact.tsx"),
     route("posts/:postId", "routes/posts.tsx"),
+    route("signup", "routes/signup.tsx"),
+    route("login", "routes/login.tsx"),
 
     // nested routes format
     // route("posts/:postId/comments", "routes/posts/comments.tsx", [
