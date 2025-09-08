@@ -1,32 +1,25 @@
 
 import SideList from "~/components/lists/SideList";
+import MainList from "~/components/lists/MainList";
 
 // TESTING: imports
 import { SERVER_INFO } from "../../.testing/serverInfo";
 
+
 export default function Music() {
-
-    // // TESTING: function calls
-    // const testFetch = async () => {
-    //     try {
-    //         const data = await fetch(`${SERVER_INFO.URL}/api/data`)
-
-    //         if (!data.ok) {
-    //             throw new Error("Failed to fetch data");
-    //         }
-
-    //         const jsonData = await data.json();
-    //         console.log(jsonData);
-
-    //     } catch (e) {
-    //         console.error(e)
-    //     }
-    // }
-
     
     return (
-        <div className="flex h-full w-full flex-1 flex-row bg-gray-900 text-white">
-            <SideList params={{}} />
+        <div className="flex h-full w-full flex-1 flex-row bg-black text-white gap-8 p-4">
+            <div id="side-music-list" 
+            className="flex flex-1 h-full max-w-1/5 bg-gray-700 text-white"
+            >
+                <SideList params={{}} />
+            </div>
+            <div id="main-music-list" 
+            className="flex flex-1 h-full max-w-4/5 bg-gray-800 text-white"
+            >
+                <MainList params={{}} />
+            </div>
         </div>
     )
 }
