@@ -11,7 +11,7 @@ export default function Music() {
     return (
         <div className="flex h-full w-full flex-1 flex-row bg-black text-white gap-8 p-4">
             <div id="side-music-list" 
-            className="flex flex-1 h-full max-w-1/5 bg-gray-700 text-white"
+            className="flex flex-1 h-full max-w-1/4 bg-gray-700 text-white"
             >
                 <SideList params={{}} />
             </div>

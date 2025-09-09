@@ -10,6 +10,7 @@ export default function SideList({params}: {params: SideListProps}) {
 
     const [searchQuery, setSearchQuery] = useState("");
     const [searchItems, setSearchItems] = useState<Array<DisplayItem>>([]);
+    const [searchDisplay, setSearchDisplay] = useState<Array<string>>([]);
 
     // TESTING: Items to display
     const testItems: Array<DisplayItem> = [
@@ -30,33 +31,78 @@ export default function SideList({params}: {params: SideListProps}) {
     ]; 
 
     useEffect(() => {
+        console.log("Setting test items");
         setSearchItems(testItems);
     }, []);
 
     // END OF TESTING
     useEffect(() => {
-        console.log("Search Query Updated:", searchQuery);
-    }, [searchQuery]);
+        console.log("Search Items Updated:", searchItems);
+    }, [searchItems]);
 
 
     const handleOnSearchChange = (query: string) => {
-        setSearchQuery(query);
+        const trimmedQuery = query.trim();
+        const updatedItems = trimmedQuery === "" ? testItems : searchItems
+        .filter(item =>
+            item.id.includes(trimmedQuery) ||
+            item.title.toLowerCase().includes(trimmedQuery.toLowerCase()) || 
+            (item.description && item.description.toLowerCase().includes(trimmedQuery.toLowerCase()))
+        );
+        
+        setSearchQuery(trimmedQuery);
+        setSearchItems(updatedItems);
     }
 
     const handleOnSearchEnter = (query: string) => {
-        console.log("Searching for:", query);
+        setSearchDisplay(prev => {
+            if (prev.includes(query)) {
+                return prev;
+            } else {
+                return [query, ...prev];
+            }
+        });
+    }
+
+    const handleRemoveSearchDisplay = (term: string) => {
+        setSearchDisplay(prev => prev.filter(t => t !== term));
     }
 
     return (
         <div className="flex flex-1 flex-col h-full w-full bg-gray-700 text-white">
             <div 
             id="side-list-top-nav"
-            className="flex flex-1 flex-row gap-4 justify-center items-center align-middle max-h-1/5 w-full p-4">
+            className="flex flex-1 flex-col gap-4 justify-center items-center align-middle max-h-1/5 w-full p-4 border-b-1 border-b-gray-100">
                 <SearchBar params={{
                     placeholder: "Search...",
                     onChange: handleOnSearchChange,
                     onEnter: handleOnSearchEnter,
                 }} />
+                {
+                    searchDisplay &&
+                    <div
+                    id="side-list-search-display"
+                    className="flex flex-1 flex-row w-full max-h-fit p-4 gap-2 justify-start items-center align-middle overflow-x-auto border-2 border-white rounded"
+                    >
+                        <div
+                        className="flex bg-white hover:bg-gray-300 p-2 rounded cursor-pointer"
+                        onClick={() => setSearchDisplay([])}
+                        >
+                            <p className="text-black text-sm font-bold">Clear</p>
+                        </div>
+                        {
+                            searchDisplay.map((term, idx) => (
+                                <div
+                                key={idx}
+                                className="flex bg-white hover:bg-gray-300 p-2 rounded cursor-pointer"
+                                onClick={() => handleRemoveSearchDisplay(term)}
+                                >
+                                    <p className="text-center text-black text-sm">{term}</p>
+                                </div>
+                            ))
+                            }
+                    </div>
+                }
             </div>
             <div
             id="side-list-content"
