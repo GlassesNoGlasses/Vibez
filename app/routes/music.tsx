@@ -1,6 +1,6 @@
 
-import SideList from "~/components/lists/SideList";
-import MainList from "~/components/lists/MainList";
+import MainDisplay from "~/components/displays/MainDisplay";
+import SideDisplay from "~/components/displays/SideDisplay";
 
 // TESTING: imports
 import { SERVER_INFO } from "../../.testing/serverInfo";
@@ -13,12 +13,12 @@ export default function Music() {
             <div id="side-music-list" 
             className="flex flex-1 h-full max-w-1/4 bg-gray-700 text-white"
             >
-                <SideList params={{}} />
+                <SideDisplay params={{}} />
             </div>
             <div id="main-music-list" 
             className="flex flex-1 h-full max-w-4/5 bg-gray-800 text-white"
             >
-                <MainList params={{}} />
+                <MainDisplay params={{}} />
             </div>
         </div>
     )

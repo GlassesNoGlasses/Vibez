@@ -2,15 +2,15 @@
 import { useEffect, useState } from "react";
 import type { DisplayItem } from "../../constants/Items";
 import SearchBar from "../search/SearchBar";
-import type SideListProps from "./SideListProps";
 import ItemDisplay from "../items/ItemDisplay";
+import type SideDisplayProps from "./SideDisplayProps";
+import List from "../lists/List";
 
+export default function SideDisplay({params}: {params: SideDisplayProps}) {
 
-export default function SideList({params}: {params: SideListProps}) {
-
-    const [searchQuery, setSearchQuery] = useState("");
     const [searchItems, setSearchItems] = useState<Array<DisplayItem>>([]);
     const [searchDisplay, setSearchDisplay] = useState<Array<string>>([]);
+    const [focusedItem, setFocusedItem] = useState<DisplayItem | null>(null);
 
     // TESTING: Items to display
     const testItems: Array<DisplayItem> = [
@@ -37,20 +37,34 @@ export default function SideList({params}: {params: SideListProps}) {
 
     // END OF TESTING
     useEffect(() => {
-        console.log("Search Items Updated:", searchItems);
-    }, [searchItems]);
+        const updatedItems = filterItemsBySearchTerms(searchDisplay);
+        setSearchItems(updatedItems);
+    }, [searchDisplay]);
+
+    
+    const filterItemsBySearchTerms = (terms: Array<string>) => {
+        if (terms.length === 0) {
+            return testItems;
+        }
+
+        // TODO: Improve filtering logic to be more robust (e.g., fuzzy search, etc.)
+        // Current logic: If any term matches id, title, or description (case insensitive), include the item
+        const filteredItems = testItems.filter(item => 
+            terms.some(term => 
+                item.id.includes(term) ||
+                item.title.toLowerCase().includes(term.toLowerCase()) || 
+                (item.description && item.description.toLowerCase().includes(term.toLowerCase()))
+            )
+        );
+
+        return filteredItems;
+    }
 
 
     const handleOnSearchChange = (query: string) => {
         const trimmedQuery = query.trim();
-        const updatedItems = trimmedQuery === "" ? testItems : searchItems
-        .filter(item =>
-            item.id.includes(trimmedQuery) ||
-            item.title.toLowerCase().includes(trimmedQuery.toLowerCase()) || 
-            (item.description && item.description.toLowerCase().includes(trimmedQuery.toLowerCase()))
-        );
+        const updatedItems = filterItemsBySearchTerms([...searchDisplay, trimmedQuery]);
         
-        setSearchQuery(trimmedQuery);
         setSearchItems(updatedItems);
     }
 
@@ -82,41 +96,36 @@ export default function SideList({params}: {params: SideListProps}) {
                     searchDisplay &&
                     <div
                     id="side-list-search-display"
-                    className="flex flex-1 flex-row w-full max-h-fit p-4 gap-2 justify-start items-center align-middle overflow-x-auto border-2 border-white rounded"
+                    className="flex flex-1 flex-row w-full max-h-fit p-2 gap-2 justify-start items-center align-middle border-2 border-white rounded"
                     >
                         <div
                         className="flex bg-white hover:bg-gray-300 p-2 rounded cursor-pointer"
                         onClick={() => setSearchDisplay([])}
                         >
-                            <p className="text-black text-sm font-bold">Clear</p>
+                            <p className="text-black text-sm font-bold">Clear All</p>
                         </div>
-                        {
-                            searchDisplay.map((term, idx) => (
-                                <div
-                                key={idx}
-                                className="flex bg-white hover:bg-gray-300 p-2 rounded cursor-pointer"
-                                onClick={() => handleRemoveSearchDisplay(term)}
-                                >
-                                    <p className="text-center text-black text-sm">{term}</p>
-                                </div>
-                            ))
+                        <div className="flex flex-1 flex-row gap-2 items-center align-middle overflow-x-auto">
+                            {
+                                searchDisplay.map((term, idx) => (
+                                    <div
+                                    key={idx}
+                                    className="flex bg-white hover:bg-gray-300 p-2 rounded cursor-pointer"
+                                    onClick={() => handleRemoveSearchDisplay(term)}
+                                    >
+                                        <p className="text-center text-black text-sm">{term}</p>
+                                    </div>
+                                ))
                             }
+                        </div>
                     </div>
                 }
             </div>
             <div
-            id="side-list-content"
-            className="flex flex-1 flex-col gap-2 justify-start items-center align-middle min-h-4/5 w-full overflow-y-auto"
-            >
-                {
-                    searchItems.map((item, idx) => (
-                        <ItemDisplay 
-                        key={idx}
-                        params={{item: item, 
-                        onClick: () => {console.log("Clicked on item:", item.title)}}} 
-                        />   
-                    ))
-                }
+            id="side-list-content">
+                <List
+                    items={searchItems}
+                    onItemSelect={(item) => console.log("Selected item:", item)}
+                />
             </div>
         </div>
     )
