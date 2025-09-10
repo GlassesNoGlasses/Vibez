@@ -1,7 +1,7 @@
 
-import type { DisplayItem } from "~/constants/Items";
+import type { Item } from "~/constants/Items";
 
 export default interface MainListProps {
-    items: Array<DisplayItem>;
-    onItemSelect: (item: DisplayItem) => void;
+    items: Array<Item>;
+    onItemSelect: (item: Item) => void;
 }

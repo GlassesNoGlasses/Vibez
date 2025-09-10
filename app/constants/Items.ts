@@ -1,11 +1,17 @@
-
+// app/constants/Items.ts
 export interface Item {
     id: string;
     title: string;
 }
 
+export const enum DisplayItemType {
+    Song = 'song',
+    Album = 'album',
+    Artist = 'artist',
+}
 
 export interface DisplayItem extends Item {
+    type: DisplayItemType;
     description?: string;
     imageUrl?: string;
 }

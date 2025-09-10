@@ -1,7 +1,7 @@
 
-import type { DisplayItem } from "~/constants/Items";
+import type { Item } from "~/constants/Items";
 
 export default interface ItemDisplayProps {
-    item: DisplayItem;
+    item: Item;
     onClick?: () => void;
 }

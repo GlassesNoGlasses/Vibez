@@ -1,39 +1,14 @@
 
 import { useEffect, useState } from "react";
-import type { DisplayItem } from "../../constants/Items";
+import { DisplayItemType, type DisplayItem } from "../../constants/Items";
 import SearchBar from "../search/SearchBar";
-import ItemDisplay from "../items/ItemDisplay";
 import type SideDisplayProps from "./SideDisplayProps";
 import List from "../lists/List";
 
-export default function SideDisplay({params}: {params: SideDisplayProps}) {
+export default function SideDisplay({items}: SideDisplayProps) {
 
-    const [searchItems, setSearchItems] = useState<Array<DisplayItem>>([]);
+    const [searchItems, setSearchItems] = useState<Array<DisplayItem>>(items);
     const [searchDisplay, setSearchDisplay] = useState<Array<string>>([]);
-    const [focusedItem, setFocusedItem] = useState<DisplayItem | null>(null);
-
-    // TESTING: Items to display
-    const testItems: Array<DisplayItem> = [
-        {
-            id: "1",
-            title: "Test Item 1",
-            description: "This is a description for Test Item 1",
-        },
-        {
-            id: "2",
-            title: "Test Item 2",
-        },
-        {
-            id: "3",
-            title: "Test Item 3",
-            description: "This is a description for Test Item 3",
-        },
-    ]; 
-
-    useEffect(() => {
-        console.log("Setting test items");
-        setSearchItems(testItems);
-    }, []);
 
     // END OF TESTING
     useEffect(() => {
@@ -44,12 +19,12 @@ export default function SideDisplay({params}: {params: SideDisplayProps}) {
     
     const filterItemsBySearchTerms = (terms: Array<string>) => {
         if (terms.length === 0) {
-            return testItems;
+            return items;
         }
 
         // TODO: Improve filtering logic to be more robust (e.g., fuzzy search, etc.)
         // Current logic: If any term matches id, title, or description (case insensitive), include the item
-        const filteredItems = testItems.filter(item => 
+        const filteredItems = items.filter(item => 
             terms.some(term => 
                 item.id.includes(term) ||
                 item.title.toLowerCase().includes(term.toLowerCase()) || 
@@ -124,7 +99,7 @@ export default function SideDisplay({params}: {params: SideDisplayProps}) {
             id="side-list-content">
                 <List
                     items={searchItems}
-                    onItemSelect={(item) => console.log("Selected item:", item)}
+                    onItemSelect={(item) => null}
                 />
             </div>
         </div>
