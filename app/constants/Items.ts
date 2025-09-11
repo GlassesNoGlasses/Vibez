@@ -1,3 +1,5 @@
+import type { Genre } from "./Genres";
+
 // app/constants/Items.ts
 export interface Item {
     id: string;
@@ -23,8 +25,8 @@ export interface Artist extends DisplayItem {
     artistId: string;
     artistType: 'solo' | 'band' | 'orchestra' | 'choir';
     name: string;
-    genres: string[];
-    birthDate?: string; 
+    genres: Genre[];
+    birthDate?: string;
     description?: string;
     followers?: number;
     popularity?: number; // 0-100
@@ -33,21 +35,21 @@ export interface Artist extends DisplayItem {
 
 export interface Song extends DisplayItem {
     duration: number; // in seconds
-    albumId: string;
-    artistId: string;
-    trackNumber: number;
-    discNumber: number;
+    album?: Album;
+    artists: Artist[];
     explicit: boolean;
+    lyrics: string;
+    releaseDate: string;
 }
 
 export interface Album extends DisplayItem {
-    artistId: string;
+    artists: Artist[];
     albumName: string;
     albumType: 'album' | 'single' | 'compilation';
     releaseDate: string;
     totalTracks: number;
     songs: Song[];
     explicit: boolean;
-    genres?: string[];
+    genres: Genre[];
 }
 
