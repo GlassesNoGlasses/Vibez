@@ -46,7 +46,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
 
         return (
             <div className="flex flex-1 flex-col h-full w-full bg-gray-500 items-center justify-center align-middle gap-6 overflow-y-auto">
-                <div className="flex flex-row h-5/6 w-full items-center justify-evenly p-4 border-blue-600 border-2 rounded">
+                <div className="flex flex-row h-1/2 w-full items-center justify-evenly p-4 border-blue-600 border-2 rounded">
                     <img src={album.imageUrl ? album.imageUrl : Placeholder} alt={album.title} className="h-auto max-w-1/4 object-cover rounded" />
                     <div className="flex flex-1 flex-col w-1/2  justify-center ml-4 text-center text-white gap1">
                         <h2 className="text-lg font-semibold">{album.albumName}</h2>
@@ -56,7 +56,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
                         <p className="text-sm">{album.releaseDate}</p>
                     </div>
                 </div>  
-                <div className="flex flex-1 flex-col max-h-fit w-full items-center justify-start">
+                <div className="flex flex-1 flex-col min-h-1/2 w-full items-center justify-start">
                     <h3 className="text-xl font-semibold mb-2">Description</h3>
                     <div className="max-w-3xl p-4 bg-gray-900 rounded shadow-lg whitespace-pre-wrap">
                         {album.description ? album.description : "Description not available."}
@@ -75,7 +75,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
 
         return (
             <div className="flex flex-1 flex-col h-full w-full bg-gray-500 items-center justify-center align-middle gap-6 overflow-y-auto">
-                <div className="flex flex-row h-5/6 w-full items-center justify-evenly p-4 border-blue-600 border-2 rounded">
+                <div className="flex flex-row h-1/2 w-full items-center justify-evenly p-4 border-blue-600 border-2 rounded">
                     <img src={artist.imageUrl ? artist.imageUrl : Placeholder} alt={artist.title} className="h-auto max-w-1/4 object-cover rounded" />
                     <div className="flex flex-1 flex-col w-1/2  justify-center ml-4 text-center text-white gap1">
                         <h2 className="text-lg font-semibold">{artist.name}</h2>
@@ -85,7 +85,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
                         <p className="text-sm">{`Followers: ${artist.followers ? artist.followers.toLocaleString() : "N/A"}`}</p>
                     </div>
                 </div>  
-                <div className="flex flex-1 flex-col max-h-fit w-full items-center justify-start">
+                <div className="flex flex-1 flex-col min-h-1/2 w-full items-center justify-start">
                     <h3 className="text-xl font-semibold mb-2">Description</h3>
                     <div className="max-w-3xl p-4 bg-gray-900 rounded shadow-lg whitespace-pre-wrap">
                         {artist.description ? artist.description : "Description not available."}
@@ -115,9 +115,13 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
 
 
     return (
-        <div className="flex flex-1 h-full w-full bg-gray-800 text-white">
-            {defaultDisplay(displayItem)}
-            <CommentSection itemId={displayItem.id} />
+        <div className="flex flex-1 h-full w-full flex-col bg-gray-800 text-white">
+            <div className="flex flex-1 min-h-5/6 w-full">
+                {defaultDisplay(displayItem)}
+            </div>
+            <div className="flex flex-1 min-h-1/6 w-full">
+                <CommentSection itemId={displayItem.id} />
+            </div>
         </div>
     )
 }

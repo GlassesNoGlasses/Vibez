@@ -1,18 +1,63 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type CommentSectionProps from "./CommentSectionProps";
+import type { Comment } from "~/constants/Comments";
+import List from "../lists/List";
+import type { Item } from "~/constants/Items";
 
 export default function CommentSection({ itemId }: CommentSectionProps) {
 
+    const [comments, setComments] = useState<Array<Comment>>([]);
+    const [charCount, setCharCount] = useState<number>(0);
+    const maxChars = 500;
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const text = e.target.value;
+        const chars = text.length;
+        if (chars <= maxChars) {
+            setCharCount(chars);
+        } else {
+            // Limit to maxChars
+            e.target.value = text.slice(0, maxChars);
+            setCharCount(maxChars);
+        }
+    };
+
+    const handleCommentSelect = (comment: Comment) => {
+        // Handle comment selection (e.g., reply, edit, delete)
+    }
+
+    // Example function to fetch comments from an API
+    const fetchComments = async () => {
+        try {
+            const response = await fetch(`/api/comments?itemId=${itemId}`);
+            const data = await response.json();
+            setComments(data.comments);
+        } catch (error) {
+            console.error("Error fetching comments:", error);
+        }
+    };
+
+    const postComment = async (commentText: string) => {
+        // Example function to post a new comment to an API
+    }
+
     useEffect(() => {
         // Fetch comments for the item
-        
+        // fetchComments();
     }, [itemId]);
 
     return (
-        <div className="p-4 bg-gray-700 text-white rounded shadow-md">
-            <h3 className="text-lg font-semibold mb-2">Comments for Item ID: {itemId}</h3>
-            <p className="text-gray-300">Comment section UI goes here.</p>
+        <div className="flex flex-1 h-full w-full flex-col bg-black p-4 border-2 border-white border-solid rounded">
+            <div className="relative  pr-2 pt-1 text-sm text-gray-400">
+                {charCount}/{maxChars}
+            </div>
+            <textarea
+            className="flex-1 h-1/4 p-2 border-2 border-white border-solid rounded text-white"
+            placeholder="Add a comment..."
+            onChange={handleInputChange}
+            />
+            <List items={comments} onItemSelect={(item) => handleCommentSelect(item as Comment)} />
         </div>
     );
 }
