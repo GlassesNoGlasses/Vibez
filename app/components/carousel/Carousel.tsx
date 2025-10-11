@@ -13,7 +13,6 @@ export default function Carousel({items, onItemClick, maxItems}: CarouselProps) 
     const [currentIndex, setCurrentIndex] = useState<number>(0); // Start at first real item
     
     const itemWidth = 100 / visibleCount; // Percentage width for each item
-    const gap = 4; // Gap between items in pixels
 
     // Handle item click
     const handleItemClick = (item: DisplayItem) => {
@@ -66,9 +65,11 @@ export default function Carousel({items, onItemClick, maxItems}: CarouselProps) 
 
             {/* Right Button */}
             <button
-                onClick={nextSlide}
-                className="flex right-1 bg-white/70 p-2 rounded-full shadow hover:bg-white"
-                style={{ visibility: currentIndex >= items.length - visibleCount ? 'hidden' : 'visible' }}
+                onClick={currentIndex >= items.length - visibleCount ? undefined : nextSlide}
+                className="flex right-1 p-2 rounded-full shadow hover:bg-white"
+                style={currentIndex >= items.length - visibleCount 
+                    ? { visibility: 'hidden', backgroundColor: 'transparent'} 
+                    : { visibility: 'visible', backgroundColor: 'rgba(255, 255, 255, 0.7)'}}
             >
                 <ChevronRight className="w-6 h-6" />
             </button>
