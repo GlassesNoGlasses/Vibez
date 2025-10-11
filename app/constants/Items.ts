@@ -12,6 +12,14 @@ export const enum DisplayItemType {
     Artist = 'artist',
 }
 
+export const enum SongType {
+    Single = 'single',
+    Cover = 'cover',
+    Remix = 'remix',
+    Live = 'live',
+    Other = 'other',
+}
+
 export interface DisplayItem extends Item {
     type: DisplayItemType;
     description?: string;
@@ -36,6 +44,7 @@ export interface Artist extends DisplayItem {
 export interface Song extends DisplayItem {
     duration: number; // in seconds
     album?: Album;
+    songType: SongType[3];
     artists: Artist[];
     explicit: boolean;
     lyrics: string;

@@ -2,6 +2,7 @@
 import Placeholder from "../../../src/svgs/item_display_placeholder.svg";
 import { DisplayItemType, type Album, type Artist, type DisplayItem, type Song } from "~/constants/Items";
 import type ItemPageProps from "./ItemPageProps";
+import CommentSection from "../comment/CommentSection";
 
 export default function ItemPage({displayItem, onBack}: ItemPageProps) {
 
@@ -14,8 +15,8 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
         const song = displayItem as Song;
 
         return (
-            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 items-center justify-center align-middle gap-6 overflow-y-auto">
-                <div className="flex flex-row h-5/6 w-full items-center justify-evenly p-4 border-blue-600 border-2 rounded">
+            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 justify-center align-middle gap-6 overflow-y-auto">
+                <div className="flex flex-row h-1/2 w-full items-center justify-center-safe p-4 border-blue-600 border-2 rounded">
                     <img src={song.imageUrl ? song.imageUrl : Placeholder} alt={song.title} className="h-auto max-w-1/4 object-cover rounded" />
                     <div className="flex flex-1 flex-col w-1/2  justify-center ml-4 text-center text-white gap1">
                         <h2 className="text-lg font-semibold">{song.title}</h2>
@@ -23,10 +24,10 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
                         {song.album && (
                             <p className="text-sm">{song.album.albumName}</p>
                         )}
-                        <p className="text-shadow-md text-sm text-gray-300">{song.artists.map(artist => artist.name).join(" | ")}</p>
+                        <p className="text-shadow-md text-sm text-gray-300">{'By: ' + song.artists.map(artist => artist.name).join(" | ")}</p>
                     </div>
                 </div>  
-                <div className="flex flex-1 flex-col max-h-fit w-full items-center justify-start">
+                <div className="flex flex-1 flex-col max-h-[1/2] w-full justify-start pl-4">
                     <h3 className="text-xl font-semibold mb-2">Lyrics</h3>
                     <div className="max-w-3xl p-4 bg-gray-900 rounded shadow-lg whitespace-pre-wrap">
                         {song.lyrics ? song.lyrics : "Lyrics not available."}
@@ -50,7 +51,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
                     <div className="flex flex-1 flex-col w-1/2  justify-center ml-4 text-center text-white gap1">
                         <h2 className="text-lg font-semibold">{album.albumName}</h2>
                         <p className="text-sm">{`Type: ${album.albumType}`}</p>
-                        <p className="text-shadow-md text-sm text-gray-300">{album.artists.map(artist => artist.name).join(" | ")}</p>
+                        <p className="text-shadow-md text-sm text-gray-300">{'By: ' + album.artists.map(artist => artist.name).join(" | ")}</p>
                         <p className="text-sm">{`Genres: ${album.genres.join(" | ")}`}</p>
                         <p className="text-sm">{album.releaseDate}</p>
                     </div>
@@ -116,6 +117,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
     return (
         <div className="flex flex-1 h-full w-full bg-gray-800 text-white">
             {defaultDisplay(displayItem)}
+            <CommentSection itemId={displayItem.id} />
         </div>
     )
 }

@@ -4,7 +4,7 @@ import SideDisplay from "~/components/displays/SideDisplay";
 
 // TESTING: imports
 import { SERVER_INFO } from "../../.testing/serverInfo";
-import { DisplayItemType, type Artist, type DisplayItem, type Song, type Album } from "~/constants/Items";
+import { DisplayItemType, type Artist, type DisplayItem, type Song, type Album, SongType } from "~/constants/Items";
 
 
 export default function Music() {
@@ -69,6 +69,7 @@ export default function Music() {
             id: "1",
             type: DisplayItemType.Song,
             title: "Test Song 1",
+            songType: SongType.Single,
             description: "This is a description for Test Song 1",
             duration: 210,
             explicit: false,
@@ -81,6 +82,7 @@ export default function Music() {
             id: "2",
             type: DisplayItemType.Song,
             title: "Test Song 2",
+            songType: SongType.Cover,
             duration: 180,
             explicit: true,
             lyrics: "",
@@ -99,12 +101,12 @@ export default function Music() {
     return (
         <div className="flex h-full w-full flex-1 flex-row bg-black text-white gap-8 p-4">
             <div id="side-music-list" 
-            className="flex flex-1 h-full max-w-1/4 bg-gray-700 text-white"
+            className="flex flex-1 min-h-full max-w-1/4 bg-gray-700 text-white"
             >
                 <SideDisplay items={testItems} />
             </div>
             <div id="main-music-list" 
-            className="flex flex-1 h-full max-w-4/5 bg-gray-800 text-white"
+            className="flex flex-1 min-h-full max-w-4/5 bg-gray-800 text-white"
             >
                 <MainDisplay items={testItems} />
             </div>
