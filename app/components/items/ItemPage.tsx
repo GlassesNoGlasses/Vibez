@@ -6,6 +6,11 @@ import CommentSection from "../comment/CommentSection";
 
 export default function ItemPage({displayItem, onBack}: ItemPageProps) {
 
+    const handleBack = () => {
+        if (onBack) {
+            onBack();
+        }
+    }
 
     const songDisplay = (displayItem: DisplayItem) => {
         if (displayItem.type !== DisplayItemType.Song) {
@@ -116,6 +121,9 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
 
     return (
         <div className="flex flex-1 h-full w-full flex-col bg-gray-800 text-white">
+            <button onClick={handleBack} className="relative w-fit cursor-pointer top-0 left-0 pl-2 hover:text-white text-gray-200 text-shadow-md">
+                &larr; Back
+            </button>
             <div className="flex flex-1 min-h-5/6 w-full">
                 {defaultDisplay(displayItem)}
             </div>

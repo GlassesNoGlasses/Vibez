@@ -43,12 +43,12 @@ export interface Artist extends DisplayItem {
 
 export interface Song extends DisplayItem {
     duration: number; // in seconds
-    album?: Album;
     songType: SongType[3];
     artists: Artist[];
     explicit: boolean;
     lyrics: string;
     releaseDate: string;
+    album?: Album;
 }
 
 export interface Album extends DisplayItem {

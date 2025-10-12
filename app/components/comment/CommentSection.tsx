@@ -14,13 +14,7 @@ export default function CommentSection({ itemId }: CommentSectionProps) {
     const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const text = e.target.value;
         const chars = text.length;
-        if (chars <= maxChars) {
-            setCharCount(chars);
-        } else {
-            // Limit to maxChars
-            e.target.value = text.slice(0, maxChars);
-            setCharCount(maxChars);
-        }
+        setCharCount(chars);
     };
 
     const handleCommentSelect = (comment: Comment) => {
@@ -49,15 +43,18 @@ export default function CommentSection({ itemId }: CommentSectionProps) {
 
     return (
         <div className="flex flex-1 h-full w-full flex-col bg-black p-4 border-2 border-white border-solid rounded">
-            <div className="relative  pr-2 pt-1 text-sm text-gray-400">
-                {charCount}/{maxChars}
+            <div id='user-comment' className="flex flex-col min-h-fit">
+                <p className={`relative pr-2 pt-1 text-sm ${charCount > maxChars ? 'text-red-500' : 'text-gray-400 '}`}>
+                    {charCount}/{maxChars}
+                </p>
+                <textarea
+                className="flex-1 h-1/4 p-2 border-2 border-white border-solid rounded text-white"
+                placeholder="Add a comment..."
+                onChange={handleInputChange}
+                />
             </div>
-            <textarea
-            className="flex-1 h-1/4 p-2 border-2 border-white border-solid rounded text-white"
-            placeholder="Add a comment..."
-            onChange={handleInputChange}
-            />
-            <List items={comments} onItemSelect={(item) => handleCommentSelect(item as Comment)} />
+            {/* <List items={comments} onItemSelect={(item) => handleCommentSelect(item as Comment)} /> */}
+                {/* Make list of comments. Perhaps add embedding of children elements to List */}
         </div>
     );
 }
