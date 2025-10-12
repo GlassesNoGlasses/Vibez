@@ -96,7 +96,8 @@ export default function SideDisplay({items}: SideDisplayProps) {
                 }
             </div>
             <div
-            id="side-list-content">
+            id="side-list-content"
+            className="flex flex-1 max-h-4/5 w-full overflow-auto">
                 <List
                     items={searchItems}
                     onItemSelect={(item) => null}

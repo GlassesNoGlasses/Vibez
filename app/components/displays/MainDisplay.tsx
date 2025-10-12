@@ -13,7 +13,7 @@ export default function MainDisplay({items} : MainDisplayProps) {
 
 
     return (
-        <div className="flex flex-1 h-full w-full bg-gray-800 text-white overflow-y-auto">
+        <div className="flex flex-1 h-full w-full bg-gray-800 text-white">
             {selectedItem ?
                 <ItemPage displayItem={selectedItem} onBack={() => setSelectedItem(null)} /> 
                 :

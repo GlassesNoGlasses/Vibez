@@ -20,7 +20,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
         const song = displayItem as Song;
 
         return (
-            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 justify-center align-middle gap-6 overflow-y-auto">
+            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 justify-center align-middle gap-6">
                 <div className="flex flex-row h-1/2 w-full items-center justify-center-safe p-4 border-blue-600 border-2 rounded">
                     <img src={song.imageUrl ? song.imageUrl : Placeholder} alt={song.title} className="h-auto max-w-1/4 object-cover rounded" />
                     <div className="flex flex-1 flex-col w-1/2  justify-center ml-4 text-center text-white gap1">
@@ -50,7 +50,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
         const album = displayItem as Album;
 
         return (
-            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 items-center justify-center align-middle gap-6 overflow-y-auto">
+            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 items-center justify-center align-middle gap-6">
                 <div className="flex flex-row h-1/2 w-full items-center justify-evenly p-4 border-blue-600 border-2 rounded">
                     <img src={album.imageUrl ? album.imageUrl : Placeholder} alt={album.title} className="h-auto max-w-1/4 object-cover rounded" />
                     <div className="flex flex-1 flex-col w-1/2  justify-center ml-4 text-center text-white gap1">
@@ -79,7 +79,7 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
         const artist = displayItem as Artist;
 
         return (
-            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 items-center justify-center align-middle gap-6 overflow-y-auto">
+            <div className="flex flex-1 flex-col h-full w-full bg-gray-500 items-center justify-center align-middle gap-6">
                 <div className="flex flex-row h-1/2 w-full items-center justify-evenly p-4 border-blue-600 border-2 rounded">
                     <img src={artist.imageUrl ? artist.imageUrl : Placeholder} alt={artist.title} className="h-auto max-w-1/4 object-cover rounded" />
                     <div className="flex flex-1 flex-col w-1/2  justify-center ml-4 text-center text-white gap1">
@@ -120,8 +120,8 @@ export default function ItemPage({displayItem, onBack}: ItemPageProps) {
 
 
     return (
-        <div className="flex flex-1 h-full w-full flex-col bg-gray-800 text-white">
-            <button onClick={handleBack} className="relative w-fit cursor-pointer top-0 left-0 pl-2 hover:text-white text-gray-200 text-shadow-md">
+        <div className="flex flex-1 h-full w-full flex-col bg-gray-800 text-white overflow-y-auto">
+            <button onClick={handleBack} className="relative w-fit max-h-fit cursor-pointer top-0 left-0 pl-2 hover:text-white text-gray-200 text-shadow-md">
                 &larr; Back
             </button>
             <div className="flex flex-1 min-h-5/6 w-full">

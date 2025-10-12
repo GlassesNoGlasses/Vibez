@@ -6,7 +6,7 @@ import SignupButton from "~/components/buttons/SignupButton";
 
 export default function Navbar() {
     return (
-        <div id="navbar" className="flex w-screen min-h-1/5 justify-evenly items-center border-b-2 border-gray-300">
+        <div id="navbar" className="flex w-full h-full justify-evenly items-center border-b-2 border-gray-300">
             <div id="left-nav" className="flex flex-1 align-middle justify-start">
                 <NavLink to="/" style={({ isActive }) => isActive ? { fontWeight: "bold" } : undefined}>
                     <h1 className="text-3xl font-bold p-4">Vibez</h1>

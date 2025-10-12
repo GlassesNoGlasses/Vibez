@@ -45,8 +45,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <div className="flex min-h-screen min-w-screen flex-col font-sans" style={{ fontFamily: "'Inter', sans-serif" }}>
-      <Navbar />
-      <Outlet />
+      <div className="flex h-1/5 w-full">
+        <Navbar />
+      </div>
+      <div className="flex h-4/5 w-full">
+        <Outlet />
+      </div>
     </div>
   );
 }

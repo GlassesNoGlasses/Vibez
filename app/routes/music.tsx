@@ -101,12 +101,12 @@ export default function Music() {
     return (
         <div className="flex h-full w-full flex-1 flex-row bg-black text-white gap-8 p-4">
             <div id="side-music-list" 
-            className="flex flex-1 min-h-full max-w-1/4 bg-gray-700 text-white"
+            className="flex flex-1 max-h-full max-w-1/4 bg-gray-700 text-white"
             >
                 <SideDisplay items={testItems} />
             </div>
             <div id="main-music-list" 
-            className="flex flex-1 min-h-full max-w-4/5 bg-gray-800 text-white"
+            className="flex flex-1 max-h-full max-w-4/5 bg-gray-800 text-white"
             >
                 <MainDisplay items={testItems} />
             </div>
